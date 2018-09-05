@@ -1,0 +1,14 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "ryan.bian",
+      "authorEmail": "macisi528@gmail.com",
+      "authorUrl": "https://github.com/macisi"
+    }
+  },
+  "generator-tms": {
+    "promptValues": {
+      "author": "ryan bian"
+    }
+  }
+}
