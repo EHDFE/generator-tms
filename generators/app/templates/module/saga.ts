@@ -5,15 +5,15 @@
  */
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import request from 'utils/request';
+import request, { mocker } from 'utils/request';
 import { getAsyncDataDone, getAsyncDataError } from './actions';
 import { GET_ASYNC_DATA } from './constants';
 
 export function* getData() {
-  const requestURL = 'testapi';
+  const url = 'testapi';
 
   try {
-    const data = yield call(request, requestURL);
+    const data = yield call(request, { url });
     yield put(getAsyncDataDone(data));
   } catch (err) {
     yield put(getAsyncDataError(err));

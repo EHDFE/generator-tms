@@ -15,7 +15,7 @@ export const getAsyncData = () => ({
 
 export const getAsyncDataDone = data => ({
   type: GET_ASYNC_DATA_SUCCESS,
-  data,
+  payload: data,
 });
 
 export const getAsyncDataError = error => ({

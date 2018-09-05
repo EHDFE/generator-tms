@@ -5,7 +5,7 @@
  */
 import { createSelector } from 'reselect';
 
-const selectState = state => state.get('home');
+const selectState = state => state.get('<%= dotName%>');
 
 export const makeSelectError = () =>
   createSelector(selectState, state => state.get('error'));

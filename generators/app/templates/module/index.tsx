@@ -32,7 +32,7 @@ class <%= componentName %> extends React.PureComponent<I<%= componentName %>Prop
 }
 
 const mapDispatchToProps = dispatch => ({
-  getAsyncData: dispatch(getAsyncData()),
+  getAsyncData: () => dispatch(getAsyncData()),
 });
 
 const mapStateToProps = createStructuredSelector({

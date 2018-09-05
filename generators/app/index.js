@@ -48,12 +48,9 @@ module.exports = class extends Generator {
     ];
 
     this.answers = await this.prompt(prompts);
-
-    this.log('answers', JSON.stringify(this.answers));
   }
 
   writing() {
-    this.log('do writing', this.destinationRoot());
     const { author, type, name } = this.answers;
     const componentName = upperFirst(camelCase(name));
     const dotName = snakeCase(componentName)
@@ -69,21 +66,20 @@ module.exports = class extends Generator {
       snakeCaseName,
       date: new Date().toLocaleString(),
     };
-    this.log(JSON.stringify(context));
-    // return;
     this.fs.copyTpl(
       this.templatePath(type),
       this.destinationPath('<%= directory %>/<%= dirName %>'),
       context,
     );
-    // this.fs.copy(
-    //   this.templatePath('dummyfile.txt'),
-    //   this.destinationPath('dummyfile.txt')
-    // );
   }
 
   install() {
-    this.log('do install');
     // this.installDependencies();
+  }
+
+  end() {
+    if (this.answers.type === 'module') {
+      this.log('记得更新 `src/App.tsx` 添加新增的模块入口!');
+    }
   }
 };
