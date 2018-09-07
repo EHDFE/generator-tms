@@ -79,7 +79,7 @@ module.exports = class extends Generator {
 
   end() {
     if (this.answers.type === 'module') {
-      this.log('记得更新 `src/App.tsx` 添加新增的模块入口!');
+      this.log('记得更新 `src/routerConfig.tsx` 添加新增的模块入口!');
     }
   }
 };

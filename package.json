@@ -1,7 +1,7 @@
 {
   "name": "generator-tms",
   "version": "0.0.1",
-  "description": "",
+  "description": "tms module generator",
   "homepage": "https://github.com/EHDFE/generator-tms",
   "author": {
     "name": "ryan.bian",

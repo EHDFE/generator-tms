@@ -5,10 +5,10 @@
  */
 import * as React from 'react';
 
-import styles from './index.module.less';
+import { locals } from './index.module.less';
 
 const <%= componentName %> = () => (
-  <div className={styles.<%= componentName %>}>
+  <div className={locals.<%= componentName %>}>
     <%= componentName %>
   </div>
 );

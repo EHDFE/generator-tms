@@ -19,7 +19,7 @@ import {
   makeSelectLoading,
 } from './selectors';
 
-import styles from './index.module.less';
+import { locals } from './index.module.less';
 
 export interface I<%= componentName %>Props {
   children: React.ReactChildren;
@@ -27,7 +27,7 @@ export interface I<%= componentName %>Props {
 
 class <%= componentName %> extends React.PureComponent<I<%= componentName %>Props> {
   public render() {
-    return <div className={styles.<%= componentName %>}><%= componentName %></div>;
+    return <div className={locals.<%= componentName %>}><%= componentName %></div>;
   }
 }
 
