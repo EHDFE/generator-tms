@@ -23,6 +23,6 @@ export function* getData() {
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* userData() {
+export default function* rootSaga() {
   yield takeLatest(GET_ASYNC_DATA, getData);
 }
