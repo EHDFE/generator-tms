@@ -8,11 +8,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import { getAsyncData } from './actions';
-import reducer from './reducer';
-import rootSaga from './saga';
+import actionTypePrefixer from 'utils/actionTypePrefixer';
+import dynamicHoc from 'utils/dynamicHoc';
+import actionFactory from './actions';
+import * as constants from './constants';
+import reducerFactory from './reducer';
+import sagaFactory from './saga';
 import {
   makeSelectData,
   makeSelectError,
@@ -25,31 +26,40 @@ export interface I<%= componentName %>Props {
   children: React.ReactChildren;
 }
 
-class <%= componentName %> extends React.PureComponent<I<%= componentName %>Props> {
-  public render() {
-    return <div className={styles.<%= componentName %>}><%= componentName %></div>;
+export default ({ location }) => {
+  const key = `<%= dotName%>${location.search}`;
+  const CONSTANTS = actionTypePrefixer(key, constants);
+  const actions = actionFactory(CONSTANTS);
+
+  class <%= componentName %> extends React.PureComponent<I<%= componentName %>Props> {
+    public render() {
+      return <div className={styles.<%= componentName %>}><%= componentName %></div>;
+    }
   }
-}
 
-const mapDispatchToProps = dispatch => ({
-  getAsyncData: () => dispatch(getAsyncData()),
-});
+  const mapDispatchToProps = dispatch => ({
+    getAsyncData: () => dispatch(actions.getAsyncData()),
+  });
 
-const mapStateToProps = createStructuredSelector({
-  error: makeSelectError(),
-  loading: makeSelectLoading(),
-});
+  const selectState = state => state.get(key);
+  const mapStateToProps = createStructuredSelector({
+    error: makeSelectError(selectState),
+    loading: makeSelectLoading(selectState),
+  });
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+  const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  );
 
-const withReducer = injectReducer({ key: '<%= dotName%>', reducer });
-const withSaga = injectSaga({ key: '<%= dotName%>', saga: rootSaga });
+  const withDynamic = dynamicHoc({
+    key,
+    reducer: reducerFactory(CONSTANTS),
+    saga: sagaFactory(CONSTANTS, actions),
+  });
 
-export default compose(
-  withReducer,
-  withConnect,
-  withSaga,
-)(<%= componentName %>);
+  return compose(
+    withDynamic,
+    withConnect,
+  )(<%= componentName %>);
+};

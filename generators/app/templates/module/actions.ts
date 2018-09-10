@@ -10,17 +10,19 @@ import {
   GET_ASYNC_DATA_SUCCESS,
 } from './constants';
 
+export default CONSANTS => ({
+  getAsyncData: (): AnyAction => ({
+    type: CONSANTS.GET_ASYNC_DATA,
+  }),
 
-export const getAsyncData = (): AnyAction => ({
-  type: GET_ASYNC_DATA,
-});
+  getAsyncDataDone: (data): AnyAction => ({
+    payload: data,
+    type: CONSANTS.GET_ASYNC_DATA_SUCCESS,
+  }),
 
-export const getAsyncDataDone = (data): AnyAction => ({
-  payload: data,
-  type: GET_ASYNC_DATA_SUCCESS,
-});
+  getAsyncDataError: (error): AnyAction => ({
+    error,
+    type: CONSANTS.GET_ASYNC_DATA_ERROR,
+  }),
+})
 
-export const getAsyncDataError = (error): AnyAction => ({
-  error,
-  type: GET_ASYNC_DATA_ERROR,
-});

@@ -6,23 +6,23 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import request, { mocker } from 'utils/request';
-import { getAsyncDataDone, getAsyncDataError } from './actions';
-import { GET_ASYNC_DATA } from './constants';
 
-export function* getData() {
-  const url = 'testapi';
+export default (CONSTANTS, actions) => {
+  function* getData() {
+    const url = 'testapi';
 
-  try {
-    const data = yield call(request, { url });
-    yield put(getAsyncDataDone(data));
-  } catch (err) {
-    yield put(getAsyncDataError(err));
+    try {
+      const data = yield call(request, { url });
+      yield put(actions.getAsyncDataDone(data));
+    } catch (err) {
+      yield put(actions.getAsyncDataError(err));
+    }
   }
-}
 
-/**
- * Root saga manages watcher lifecycle
- */
-export default function* rootSaga() {
-  yield takeLatest(GET_ASYNC_DATA, getData);
+  /**
+   * Root saga manages watcher lifecycle
+   */
+  return function* rootSaga() {
+    yield takeLatest(CONSTANTS.GET_ASYNC_DATA, getData);
+  }
 }

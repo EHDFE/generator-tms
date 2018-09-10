@@ -5,13 +5,11 @@
  */
 import { createSelector } from 'reselect';
 
-const selectState = state => state.get('<%= dotName%>');
-
-export const makeSelectError = () =>
+export const makeSelectError = selectState =>
   createSelector(selectState, state => state.get('error'));
 
-export const makeSelectLoading = () =>
+export const makeSelectLoading = selectState =>
   createSelector(selectState, state => state.get('loading'));
 
-export const makeSelectData = () =>
+export const makeSelectData = selectState =>
   createSelector(selectState, state => state.get('data'));
