@@ -26,8 +26,10 @@ export interface I<%= componentName %>Props {
   children: React.ReactChildren;
 }
 
-export default ({ location }) => {
-  const key = `<%= dotName%>${location.search}`;
+export default ({ location, routeConfig }) => {
+  const key = routeConfig.allowMultipleInstance
+    ? `<%= dotName%>${location.search}`
+    : '<%= dotName%>';
   const CONSTANTS = actionTypePrefixer(key, constants);
   const actions = actionFactory(CONSTANTS);
 
