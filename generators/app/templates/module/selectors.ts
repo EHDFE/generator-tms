@@ -3,13 +3,14 @@
  * @author <%= author %>
  * @date <%= date %>
  */
+import { Map } from 'immutable';
 import { createSelector } from 'reselect';
 
 export const makeSelectError = selectState =>
-  createSelector(selectState, state => state.get('error'));
+  createSelector(selectState, (state: Map<string, any>) => state.get('error'));
 
 export const makeSelectLoading = selectState =>
-  createSelector(selectState, state => state.get('loading'));
+  createSelector(selectState, (state: Map<string, any>) => state.get('loading'));
 
 export const makeSelectData = selectState =>
-  createSelector(selectState, state => state.get('data'));
+  createSelector(selectState, (state: Map<string, any>) => state.get('data'));

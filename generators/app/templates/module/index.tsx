@@ -8,13 +8,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import actionTypePrefixer from 'utils/actionTypePrefixer';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import actionFactory from './actions';
-import * as constants from './constants';
-import reducerFactory from './reducer';
-import sagaFactory from './saga';
 import {
   makeSelectData,
   makeSelectError,
@@ -33,16 +26,12 @@ class <%= componentName %> extends React.PureComponent<I<%= componentName %>Prop
   }
 }
 
-export default ({ route }) => {
-  const key = route.get('routeId');
-  const CONSTANTS = actionTypePrefixer(key, constants);
-  const actions = actionFactory(CONSTANTS);
-
+export default ({ routeId, actions }) => {
   const mapDispatchToProps = dispatch => ({
     getAsyncData: () => dispatch(actions.getAsyncData()),
   });
 
-  const selectState = state => state.get(key);
+  const selectState = state => state.get(routeId);
   const mapStateToProps = createStructuredSelector({
     error: makeSelectError(selectState),
     loading: makeSelectLoading(selectState),
@@ -53,14 +42,5 @@ export default ({ route }) => {
     mapDispatchToProps,
   );
 
-  const withReducer = injectReducer({ key, reducer: reducerFactory(CONSTANTS) });
-  const withSaga = injectSaga({ key, saga: sagaFactory(CONSTANTS, actions) });
-
-  const Comp = compose(
-    withReducer,
-    withSaga,
-    withConnect,
-  )(<%= componentName %>);
-
-  return <Comp />;
+  return compose(withConnect)(<%= componentName %>);
 };
