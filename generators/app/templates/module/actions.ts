@@ -24,5 +24,4 @@ export default CONSANTS => ({
     error,
     type: CONSANTS.GET_ASYNC_DATA_ERROR,
   }),
-})
-
+});

@@ -9,7 +9,8 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import actionTypePrefixer from 'utils/actionTypePrefixer';
-import dynamicHoc from 'utils/dynamicHoc';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 import actionFactory from './actions';
 import * as constants from './constants';
 import reducerFactory from './reducer';
@@ -26,18 +27,16 @@ export interface I<%= componentName %>Props {
   children: React.ReactChildren;
 }
 
-export default ({ location, routeConfig }) => {
-  const key = routeConfig.allowMultipleInstance
-    ? `<%= dotName%>${location.search}`
-    : '<%= dotName%>';
+class <%= componentName %> extends React.PureComponent<I<%= componentName %>Props> {
+  public render() {
+    return <div className={styles.<%= componentName %>}><%= componentName %></div>;
+  }
+}
+
+export default ({ route }) => {
+  const key = route.get('routeId');
   const CONSTANTS = actionTypePrefixer(key, constants);
   const actions = actionFactory(CONSTANTS);
-
-  class <%= componentName %> extends React.PureComponent<I<%= componentName %>Props> {
-    public render() {
-      return <div className={styles.<%= componentName %>}><%= componentName %></div>;
-    }
-  }
 
   const mapDispatchToProps = dispatch => ({
     getAsyncData: () => dispatch(actions.getAsyncData()),
@@ -54,14 +53,12 @@ export default ({ location, routeConfig }) => {
     mapDispatchToProps,
   );
 
-  const withDynamic = dynamicHoc({
-    key,
-    reducer: reducerFactory(CONSTANTS),
-    saga: sagaFactory(CONSTANTS, actions),
-  });
+  const withReducer = injectReducer({ key, reducer: reducerFactory(CONSTANTS) });
+  const withSaga = injectSaga({ key, saga: sagaFactory(CONSTANTS, actions) });
 
   return compose(
-    withDynamic,
+    withReducer,
+    withSaga,
     withConnect,
   )(<%= componentName %>);
 };

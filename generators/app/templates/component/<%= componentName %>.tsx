@@ -7,7 +7,9 @@ import * as React from 'react';
 
 import styles from './index.module.less';
 
-const <%= componentName %> = () => (
+export interface I<%= componentName %>Props {}
+
+const <%= componentName %> = (props: I<%= componentName %>Props) => (
   <div className={styles.<%= componentName %>}>
     <%= componentName %>
   </div>

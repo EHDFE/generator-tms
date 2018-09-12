@@ -25,4 +25,4 @@ export default (CONSTANTS, actions) => {
   return function* rootSaga() {
     yield takeLatest(CONSTANTS.GET_ASYNC_DATA, getData);
   }
-}
+};
