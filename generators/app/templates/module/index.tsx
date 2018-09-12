@@ -56,9 +56,11 @@ export default ({ route }) => {
   const withReducer = injectReducer({ key, reducer: reducerFactory(CONSTANTS) });
   const withSaga = injectSaga({ key, saga: sagaFactory(CONSTANTS, actions) });
 
-  return compose(
+  const Comp = compose(
     withReducer,
     withSaga,
     withConnect,
   )(<%= componentName %>);
+
+  return <Comp {...otherProps} />;
 };
