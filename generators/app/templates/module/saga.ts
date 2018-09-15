@@ -5,14 +5,12 @@
  */
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import request, { mocker } from 'utils/request';
+import { getResources } from './service';
 
 export default (CONSTANTS, actions) => {
   function* getData() {
-    const url = 'testapi';
-
     try {
-      const data = yield call(request, { url });
+      const data = yield call(getResources);
       yield put(actions.getAsyncDataDone(data));
     } catch (err) {
       yield put(actions.getAsyncDataError(err));
