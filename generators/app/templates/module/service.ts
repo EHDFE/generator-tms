@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'development') {
  * 获取资源信息
  * 其实就是拿菜单树
  */
-export const getResources = data => {
+export const getData = data => {
   return request(
     {
       method: 'post',

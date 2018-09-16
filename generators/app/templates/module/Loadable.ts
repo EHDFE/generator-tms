@@ -23,9 +23,4 @@ if (process.env.NODE_ENV === 'development') {
 
 export default Component;
 
-import * as constants from './constants';
-
-export { default as actionFactory } from './actions';
-export { constants };
-export { default as sagaFactory } from './saga';
-export { default as reducerFactory } from './reducer';
+export { default as modelFactory } from './model';
