@@ -1,6 +1,7 @@
 /**
- * fixpath.list Service
- * @author ryan bian
+ * <%= componentName %> service
+ * @author <%= author %>
+ * @date <%= date %>
  */
 import request, { mocker } from 'utils/request';
 import { USE_MOCK } from '../../CONFIG';

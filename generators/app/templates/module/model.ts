@@ -1,3 +1,8 @@
+/**
+ * <%= componentName %> model
+ * @author <%= author %>
+ * @date <%= date %>
+ */
 import message from 'antd/es/message';
 import { fromJS, List, Map } from 'immutable';
 import { call, put, takeLatest } from 'redux-saga/effects';
@@ -12,6 +17,7 @@ export default namespace =>
       data: List(),
       error: false,
       loading: false,
+      dataCount: 0,
     }),
     actions: {
       GET_ASYNC_DATA: () => ({}),
@@ -28,6 +34,7 @@ export default namespace =>
       GET_ASYNC_DATA_SUCCESS(state, action) {
         return state
           .set('loading', false)
+          .set('dataCount', action.payload.count)
           .set('data', fromJS(action.payload.data));
       },
     },
