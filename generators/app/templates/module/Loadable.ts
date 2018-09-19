@@ -14,9 +14,9 @@ if (process.env.NODE_ENV === 'development') {
   Component = config =>
     Loadable({
       loader: () =>
-        import('./index').then(exports => {
-          return exports.default(config);
-        }),
+        import(/* webpackChunkName: "<%= kebabCaseName %>" */ './index').then(
+          exports => exports.default(config),
+        ),
       loading: LoadingIndicator,
     });
 }

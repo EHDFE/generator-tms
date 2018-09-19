@@ -2,7 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
-const { camelCase, upperFirst, snakeCase, toUpper } = require('lodash');
+const { camelCase, kebabCase, upperFirst, snakeCase, toUpper } = require('lodash');
 
 const INVALID_NAME_LIST = [
   'module',
@@ -64,6 +64,7 @@ module.exports = class extends Generator {
       componentName,
       dotName,
       snakeCaseName,
+      kebabCaseName: kebabCase(componentName),
       date: new Date().toLocaleString(),
     };
     this.fs.copyTpl(
